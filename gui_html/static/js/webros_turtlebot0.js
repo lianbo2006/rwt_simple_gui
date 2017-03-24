@@ -65,11 +65,12 @@ function playPause(){
   var video_raw = document.getElementById("cam_raw");
   if (vidShow=='停止'){
     vidShow='彩色';
-    video_raw.src=src_site1;
+    video_raw.src = src_site1;
   }
   else {
     vidShow='停止';
-    video_raw.src=src_site3;
+    video_raw.src = src_site3;
+
   }
   // else if (vidShow=='彩色') {
   //   vidShow='深度';
