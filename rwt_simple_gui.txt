@@ -1,0 +1,57 @@
+#环境配置相关
+
+##rosbridge_suite
+sudo apt-get install ros-indigo-rosbridge-suite
+source /opt/ros/indigo/setup.bash
+
+##workspace
+cd rwt_ws
+catkin_make
+source devel/setup.bash
+gedit ~/.bashrc
+#export ROS_PACKAGE_PATH=~/rwt_ws/src:$ROS_PACKAGE_PATH
+#source ~/rwt_ws/devel/setup.bash
+
+##腾讯云主机登录 pw:admin12345
+$ ssh ubuntu@123.206.22.180
+
+##双机都安装autossh
+$ sudo apt-get install autossh
+
+#实验命令相关
+
+##先启动rosbridge与web_video_server
+$ roslaunch usb_cam robot_gui.launch 
+##再建立反向ssh隧道
+$ ssh -NfR 1234:localhost:9090 ubuntu@123.206.22.180
+$ ssh -NfR 2345:localhost:8888 ubuntu@123.206.22.180
+##最后启动turtlebot
+$ roslaunch turtlebot_bringup minimal.launch
+
+
+
+#其他相关命令备忘
+##echo topic
+$ rostopic echo /cmd_vel_mux/input/teleop
+
+##查看端口进程号
+$ sudo netstat -anp | grep 2345
+
+##杀进程
+$ kill 进程号
+
+##turtlebot键盘控制
+$ roslaunch turtlebot_teleop keyboard_teleop.launch
+
+##turtlebot消息控制
+$ rostopic pub -1 /cmd_vel_mux/input/teleop geometry_msgs/Twist -- '[2.0, 0.0, 0.0]' '[0.0, 0.0, 1.8]'
+
+##文件管理器
+$ nautilus
+
+##scp
+$ scp lianbo2006@219.216.87.82:/home/lianbo2006/Project/webtest/websocket/tcp_client.py /home/ubuntu/test
+$ scp /home/lianbo2006/Project/webtest/websocket/tcp_server.py ubuntu@123.206.22.180:/home/ubuntu/test
+
+##启动gazebo
+$ roslaunch turtlebot_gazebo turtlebot_world.launch
